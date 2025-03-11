@@ -59,12 +59,6 @@ menu:
       - title: Machine Unlearning
         url: /mu/
 
-
-  - title:             Federated Learning
-    url:               /fl/
-  - title:             Machine Unlearning
-    url:               /mu/
-
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
 legal:
