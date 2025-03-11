@@ -99,7 +99,7 @@ An entry looks like:
 ~~~yml
 deviantart:
   name: DeviantArt
-  icon: icon-deviantart
+  icon: icons-deviantart
   prepend: "https://"
   append: ".deviantart.com"
 ~~~

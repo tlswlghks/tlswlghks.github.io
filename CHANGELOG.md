@@ -630,7 +630,7 @@ Dec 18 2017
   ```yml
   # file: `_data/strings.yml`
   permalink:      Permalink
-  permalink_icon: icon-link
+  permalink_icon: icons-link
   ```
 
 * Sections on resume layout can now be rearranged, e.g.:
@@ -1176,13 +1176,13 @@ This maintenance release includes various quality-of-life improvements when usin
   data_social:
     github:
       name: GitHub
-      icon: icon-github
+      icon: icons-github
     npm:
       name: npm
-      icon: icon-npm
+      icon: icons-npm
     download:
       name: Download
-      icon: icon-box-add
+      icon: icons-box-add
   ~~~
 
 * A download icon has been added to the default icon font and `_data/social.yml` has been updated.

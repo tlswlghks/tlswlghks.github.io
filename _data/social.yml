@@ -1,263 +1,263 @@
 # This file contains meta data for various social media sites
 email:
   name: Email
-  icon: icon-mail
+  icon: icons-mail
   prepend: 'mailto:'
 amazon:
   name: Amazon
-  icon: icon-amazon
+  icon: icons-amazon
 google:
   name: Google
-  icon: icon-google
+  icon: icons-google
 google-plus:
   name: Google+
-  icon: icon-google-plus
+  icon: icons-google-plus
   prepend: 'https://plus.google.com/'
 google-drive:
   name: Google Drive
-  icon: icon-google-drive
+  icon: icons-google-drive
 facebook:
   name: Facebook
-  icon: icon-facebook
+  icon: icons-facebook
   prepend: 'https://facebook.com/'
 instagram:
   name: Instagram
-  icon: icon-instagram
+  icon: icons-instagram
   prepend: 'https://instagram.com/'
 whatsapp:
   name: WhatsApp
-  icon: icon-whatsapp
+  icon: icons-whatsapp
 spotify:
   name: Spotify
-  icon: icon-spotify
+  icon: icons-spotify
   prepend: "https://play.spotify.com/"
 telegram:
   name: Telegram
-  icon: icon-telegram
+  icon: icons-telegram
 twitter:
   name: X / Twitter
-  icon: icon-twitter
+  icon: icons-twitter
   prepend: 'https://x.com/'
 twitter-old:
   name: Twitter
-  icon: icon-twitter-old
+  icon: icons-twitter-old
   prepend: 'https://twitter.com/'
 x:
   name: X
-  icon: icon-twitter
+  icon: icons-twitter
   prepend: 'https://x.com/'
 vine:
   name: Vine
-  icon: icon-vine
+  icon: icons-vine
   prepend: 'https://vine.com/'
 vk:
   name: VK
-  icon: icon-vk
+  icon: icons-vk
   prepend: "https://vk.com/"
 renren:
   name: 人人网
-  icon: icon-renren
+  icon: icons-renren
 sina-weibo:
   name: Sina Weibo
-  icon: icon-sina-weibo
+  icon: icons-sina-weibo
 rss:
   name: RSS
-  icon: icon-rss2
+  icon: icons-rss2
 youtube:
   name: YouTube
-  icon: icon-youtube
+  icon: icons-youtube
   prepend: "https://www.youtube.com/channel/"
 twitch:
   name: Twitch
-  icon: icon-twitch
+  icon: icons-twitch
   prepend: "https://www.twitch.tv/"
 vimeo:
   name: Vimeo
-  icon: icon-vimeo
+  icon: icons-vimeo
   prepend: "https://www.vimeo.com/"
 lanyrd:
   name: Lanyrd
-  icon: icon-lanyrd
+  icon: icons-lanyrd
 flickr:
   name: Flickr
-  icon: icon-flickr2
+  icon: icons-flickr2
   prepend: "https://flickr.com/people/"
 dribbble:
   name: Dribbble
-  icon: icon-dribbble
+  icon: icons-dribbble
   prepend: "https://dribbble.com/"
 behance:
   name: Behance
-  icon: icon-behance
+  icon: icons-behance
   prepend: "https://www.behance.net/"
 deviantart:
   name: DeviantArt
-  icon: icon-deviantart
+  icon: icons-deviantart
   prepend: "https://"
   append: ".deviantart.com"
 500px:
   name: 500px
-  icon: icon-500px
+  icon: icons-500px
   prepend: "https://500px.com/"
 steam:
   name: Steam
-  icon: icon-steam
+  icon: icons-steam
   prepend: "http://steamcommunity.com/profiles/"
 dropbox:
   name: Dropbox
-  icon: icon-dropbox
+  icon: icons-dropbox
 ondrive:
   name: OneDrive
-  icon: icon-ondrive
+  icon: icons-ondrive
 github:
   name: GitHub
-  icon: icon-github
+  icon: icons-github
   prepend: "https://github.com/"
 npm:
   name: npm
-  icon: icon-npm
+  icon: icons-npm
   prepend: "https://npmjs.com/~"
 basecamp:
   name: Basecamp
-  icon: icon-basecamp
+  icon: icons-basecamp
 trello:
   name: Trello
-  icon: icon-trello
+  icon: icons-trello
   prepend: "https://trello.com/"
 wordpress:
   name: WordPress
-  icon: icon-wordpress
+  icon: icons-wordpress
 joomla:
   name: Joomla!
-  icon: icon-joomla
+  icon: icons-joomla
 ello:
   name: Ello
-  icon: icon-ello
+  icon: icons-ello
   prepend: "https://ello.co/"
 blogger:
   name: Blogger
-  icon: icon-blogger
+  icon: icons-blogger
   prepend: "https://www.blogger.com/profile/"
 tumblr:
   name: Tumblr
-  icon: icon-tumblr
+  icon: icons-tumblr
   prepend: "https://"
   append: ".tumblr.com"
 yahoo:
   name: Yahoo
-  icon: icon-yahoo
+  icon: icons-yahoo
 soundcloud:
   name: SoundCloud
-  icon: icon-soundcloud
+  icon: icons-soundcloud
   prepend: "https://soundcloud.com/"
 skype:
   name: Skype
-  icon: icon-skype
+  icon: icons-skype
 reddit:
   name: reddit
-  icon: icon-reddit
+  icon: icons-reddit
   prepend: "https://www.reddit.com/user/"
 hackernews:
   name: Hacker News
-  icon: icon-hackernews
+  icon: icons-hackernews
   prepend: "https://news.ycombinator.com/user?id="
 wikipedia:
   name: Wikipedia
-  icon: icon-wikipedia
+  icon: icons-wikipedia
 linkedin:
   name: LinkedIn
-  icon: icon-linkedin2
+  icon: icons-linkedin2
   prepend: "https://www.linkedin.com/in/"
 lastfm:
   name: Last.fm
-  icon: icon-lastfm
+  icon: icons-lastfm
   prepend: "http://www.last.fm/user/"
 delicious:
   name: Delicious
-  icon: icon-delicious
+  icon: icons-delicious
   prepend: "http://del.icio.us/"
 stumbleupon:
   name: StumbleUpon
-  icon: icon-stumbleupon
+  icon: icons-stumbleupon
   prepend: "http://www.stumbleupon.com/stumbler/"
 stackoverflow:
   name: Stack Overflow
-  icon: icon-stackoverflow
+  icon: icons-stackoverflow
   prepend: "http://stackoverflow.com/users/"
 pinterest:
   name: Pinterest
-  icon: icon-pinterest2
+  icon: icons-pinterest2
   prepend: "https://www.pinterest.com/"
 xing:
   name: XING
-  icon: icon-xing2
+  icon: icons-xing2
   prepend: "https://www.xing.com/profile/"
 flattr:
   name: Flattr
-  icon: icon-flattr
+  icon: icons-flattr
 foursquare:
   name: Foursquare
-  icon: icon-foursquare
+  icon: icons-foursquare
   prepend: "https://foursquare.com/user/"
 yelp:
   name: Yelp
-  icon: icon-yelp
+  icon: icons-yelp
   prepend: "https://www.yelp.com/user_details?userid="
 paypal:
   name: PayPal
-  icon: icon-paypal
+  icon: icons-paypal
   prepend: "https://www.paypal.me/"
 keybase:
   name: Keybase
-  icon: icon-key
+  icon: icons-key
   prepend: "https://keybase.io/"
 download:
   name: Download
-  icon: icon-box-add
+  icon: icons-box-add
 signal:
   name: Signal
-  icon: icon-signal
+  icon: icons-signal
   prepend: https://signal.group/
 threads:
   name: Threads
-  icon: icon-threads
+  icon: icons-threads
   prepend: https://threads.net/
 playstation:
   name: PlayStation
-  icon: icon-playstation
+  icon: icons-playstation
 messenger:
   name: Messenger
-  icon: icon-messenger
+  icon: icons-messenger
   prepend: https://messenger.com/
 stripe:
   name: Stripe
-  icon: icon-stripe
+  icon: icons-stripe
 slack:
   name: Slack
-  icon: icon-slack
+  icon: icons-slack
 gitlab:
   name: GitLab
-  icon: icon-gitlab
+  icon: icons-gitlab
   prepend: "https://gitlab.com/"
 line:
   name: Line
-  icon: icon-line
+  icon: icons-line
   prepend: https://line.me/
 medium:
   name: Medium
-  icon: icon-medium
+  icon: icons-medium
   prepend: "https://medium.com/"
 xbox:
   name: Xbox
-  icon: icon-xbox
+  icon: icons-xbox
   prepend: https://xbox.com/play/user/
 wechat:
   name: WeChat
-  icon: icon-wechat
+  icon: icons-wechat
 discord:
   name: Discord
-  icon: icon-discord
+  icon: icons-discord
   prepend: https://discord.com/invite/
 mastodon:
   name: Mastodon
-  icon: icon-mastodon
+  icon: icons-mastodon
