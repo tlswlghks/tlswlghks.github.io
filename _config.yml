@@ -96,7 +96,7 @@ remote_theme: hydecorp/hydejack@v9
  
 # Sidebar image and theme color of the site.
 accent_image:
-background: center / cover url(/assets/img/git_background.gif)
+background: center / cover url(https://64.media.tumblr.com/be9e196e0e59b345a49575020cef444b/4e9537cad97cbf25-b2/s1280x1920/089518d26a3da5081f649c28777eb5ee357940aa.gifv)
 overlay: false
 accent_color:          rgb(79,177,186)
 
