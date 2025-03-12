@@ -6,7 +6,7 @@ sitemap: false
 categories: [Machine Unlearning, Deep Learning]
 tags: [blog]
 
-permalink: /MU_01/
+permalink: /_posts/MU_01/
 ---
 #  Towards Safer Large Language Models through Machine
 ## Abstract
