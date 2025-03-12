@@ -1,0 +1,41 @@
+---
+layout: post
+title: "Towards Safer Large Language Models through Machine Unlearning"
+
+sitemap: false
+categories: [Machine Unlearning, Deep Learning]
+tags: [blog]
+
+permalink: /MU_01/
+---
+#  Towards Safer Large Language Models through Machine
+## Abstract
+대규모 언어 모델(LLM)은 문제적인 프롬프트에 대해 유해한 답변을 생성할 수 있다는 한계를 갖고 있으며, 이를 해결하기 위한 다양한 연구가 진행되고 있다.   
+**Gradient ascent based approach**을 활용하여 LLM이 유해한 답변을 생성하지 않도록 하는 방법은 효과적일 수 있지만, 정상적인 프롬프트에 대한 모델의 활용성(utility)에 부정적인 영향을 미칠 가능성이 있다.   
+이러한 한계를 극복하기 위해 본 논문에서는 **선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU)** 기법을 제안한다. SKU는 정상적인 프롬프트에 대한 모델의 활용성을 유지하면서도 유해한 지식을 효과적으로 제거하도록 설계되었다.
+
+## Introduction
+대규모 언어 모델(LLM, Large Language Model)은 다양한 인공지능(AI) 애플리케이션에서 뛰어난 성능을 입증해왔다.   
+그러나 방대한 양의 텍스트 데이터를 학습하는 과정에서, 유해한 프롬프트(harmful prompt)에 대해 부적절한 응답을 생성하는 문제가 발생할 수 있다. 이를 해결하기 위해 **인간 피드백을 활용한 강화 학습(RLHF, Reinforcement Learning from Human Feedback)** 기법이 도입되었으며, 이는 정책 규제(policy regulations)와 인간의 가치(human values)를 반영하여 보다 안전한 출력을 생성하도록 한다.   
+하지만 RLHF는 **계산 비용이 높고(computationally expensive)**, **평가자의 편향(misaligned evaluator)** 에 따라 부정확한 조정이 이루어질 가능성이 있다는 한계를 가진다.   
+
+이러한 한계를 극복하기 위한 대안으로 **기계 학습 제거(MU, Machine Unlearning)** 기법이 연구되고 있다.   
+MU는 사전 학습(pre-training) 과정에서 바람직하지 않은 행동 패턴을 모델이 ‘잊도록(forget)’ 만드는 방법으로, RLHF보다 **계산 효율성이 높고(computationally efficient)**, **구현이 용이하다는(implementing is easier)** 장점이 있다.   
+
+전통적인 분류(classification) 작업에서의 MU는 **데이터셋과 학습된 모델에서 특정 데이터의 영향을 제거하는 것**을 목표로 한다. 그러나 모델의 규모가 커지고 학습 과정이 복잡해지면서, 기존 방법으로는 원하는 성능을 유지하기 어려워졌으며, 특히 정상적인 프롬프트(normal prompt)에 대한 응답 품질이 저하되는 문제가 발생했다.   
+또한, 사전 학습된 LLM은 유해한 프롬프트에 대한 재응답을 실패하는 경우가 많았으며, **기존의 그래디언트 기반 접근법(gradient-based approaches)** 또한 정상적인 프롬프트에 대한 응답 성능을 저하시켰다.   
+
+이러한 문제를 해결하기 위해 본 논문에서는 **선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU)** 기법을 제안한다. SKU는 정상적인 프롬프트에 대한 응답 성능을 유지하면서도, 모델이 유해한 지식을 효과적으로 제거할 수 있도록 설계되었다.   
+
+본 논문에서 제안하는 선택적 지식 부정 학습은 두 단계의 구조로 이루어져 있다.   
+1. harmful knowledge acquisition stage   
+2. knowledge negation stage   
+
+논문의 main contribution은 다음과 같다.   
+1. 본 논문은 LLM에서의 unlearning harmful knowledge와 preserving utility 사이의 trade-off를 조사한 첫 번째 연구이다.
+2. 새로운 두 개의 단계로 이루어진 선택적 지식 부정 학습을 제안하며, normal prompts에 대한 모델의 utility를 보존하면서, 효율적으로 harmful knowledge를 제거하기 위해 설계되었다.
+3. Experiments와 ablation studies를 통해 제안한 framework의 효과(effectiveness)를 입증하고, harmfulness를 unlearning하고 utility performance를 보존하는 것을 입증한다.   
+
+각 단계에 대해서는 Methods에서 이야기 해보도록 하겠다.
+
+## Methods
