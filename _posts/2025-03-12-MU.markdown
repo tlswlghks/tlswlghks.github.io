@@ -27,9 +27,12 @@ MU는 사전 학습(pre-training) 과정에서 바람직하지 않은 행동 패
 
 이러한 문제를 해결하기 위해 본 논문에서는 **선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU)** 기법을 제안한다. SKU는 정상적인 프롬프트에 대한 응답 성능을 유지하면서도, 모델이 유해한 지식을 효과적으로 제거할 수 있도록 설계되었다.
 
-본 논문에서 제안하는 선택적 지식 부정 학습(SKU)은 **두 단계의 과정**으로 구성된다.
+본 논문에서 제안하는 선택적 지식 부정 학습(SKU)은 크게 **두 단계의 과정**으로 구성된다.
 
 1. **유해 지식 획득 단계 (Harmful Knowledge Acquisition Stage)**
+   - Guided Distortion Module
+   - Random Disassociation Module
+   - Preservation Divergence Module
 2. **지식 부정 학습 단계 (Knowledge Negation Stage)**
 
 본 연구의 주요 기여(contribution)는 다음과 같다.
@@ -37,6 +40,18 @@ MU는 사전 학습(pre-training) 과정에서 바람직하지 않은 행동 패
 1. LLM에서 **유해한 지식을 제거하는 과정과 모델의 활용성(utility) 유지 간의 트레이드오프**를 분석한 최초의 연구이다.
 2. **두 단계로 구성된 선택적 지식 부정 학습 기법을 제안**하며, 이를 통해 정상적인 프롬프트에 대한 응답 성능을 유지하면서도 효율적으로 유해한 지식을 제거할 수 있도록 설계되었다.
 3. 실험(Experiments) 및 제거 연구(Ablation Studies)를 통해 제안한 프레임워크의 효과성을 검증하고, **유해성 제거(unlearning harmfulness)와 모델 성능 유지(utility performance preservation)** 를 입증하였다.
+
 각 단계에 대한 자세한 내용은 이후 **Methods** 절에서 다룬다.
 
 ## Methods
+선택적 지식 부정 학습(SKU)는 utility performance의 저하 없이 유해 정보(harmful information)을 선택적으로 제거하기 위해 설계되었다.
+
+첫 번째 단계는 LLM 내에서 유해 지식(harmful knowledge)를 식별하고, 학습하는 단계이다.
+두 번째 단계는 유해 지식(harmful knowledge)을 체계적으로 부정하는데 초점을 둔다.
+
+# Guided Distortion Module
+Guided Distortion Module은 harmful prompts에 대해 정확하게 응답하기 위해 \( \theta_o \)로 표기되는 original LLM(pre-trained)을 용이하게 만드는 것을 목표로 한다.   
+
+즉, unlearning process 이후 LLM에서 harmful knowledge를 식별하고 완화하는 것에 목적을 둔다.
+
+harmful prompt-output pair \((x_f, y_f))\가 주어지면,  \(\psi _\theta (x, y_{<i}))\을 LLM \( \theta\)에 의한 token \(y_i)\의 예측 확률로 표현한다.
