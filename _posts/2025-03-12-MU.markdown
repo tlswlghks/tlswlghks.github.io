@@ -49,6 +49,8 @@ MU는 사전 학습(pre-training) 과정에서 바람직하지 않은 행동 패
 첫 번째 단계는 LLM 내에서 유해 지식(harmful knowledge)를 식별하고, 학습하는 단계이다.
 두 번째 단계는 유해 지식(harmful knowledge)을 체계적으로 부정하는데 초점을 둔다.
 
+### Step 1.
+
 ### Guided Distortion Module
 
 **Guided Distortion Module**은 유해한 프롬프트(harmful prompts)에 대해 정확하게 응답하도록 학습된 **original LLM**(pre-trained), 즉 $$ \theta_o $$ 를 활용하는 것을 목표로 한다.  
@@ -105,4 +107,102 @@ $$
 
 모델이 의도적으로 유해한 정보에 노출되는 **Guided Distortion Module**을 기반으로, **Random Disassociation Module**은 모델이 유해하지만 정렬되지 않은 응답을 생성하는 행동을 학습하도록 유도하는 것을 목표로 한다.  
 본질적으로, **Random Disassociation**은 LLM이 학습한 유해한 지식을 더욱 다양화하여, 이후 단계에서 보다 효과적이고 포괄적인 **Unlearning Process**를 수행할 수 있도록 준비하는 역할을 한다.
+
+
+### Preservation Divergence Module
+
+LLM unlearning의 또 다른 중요한 목표는 **유해한 지식(harmful knowledge)** 을 제거하는 동시에, **비유해적인(normal) 프롬프트** 에 대한 응답이 손상되지 않도록 하는 것입니다.  
+이전 모듈들이 유해한 콘텐츠에 초점을 맞췄다면, **Preservation Divergence Module(PD Module)** 은 정상적인 프롬프트를 유지하는 데 중점을 둡니다.
+
+논문에서는 이를 다음과 같이 정의합니다.
+
+$$
+P(i) = \theta_o(x_o)(i), \quad Q(i) = \theta_u(x_n)(i)
+$$
+
+여기서 **negative KL divergence** 는 다음과 같이 표현할 수 있습니다.
+
+$$
+KL(P || Q) = -\sum_{i} P(i) \log \left(\frac{P(i)}{Q(i)}\right)
+$$
+
+이를 적용함으로써, **unlearned LLM** $$\( \theta_u \)$$ 와 **original LLM** $$\( \theta_o \)$$ 사이의 **정상적인 프롬프트** $$\( x_n \)$$ 에 대한 분포 차이를 최소화하는 것이 목표입니다.  
+따라서, **Preservation Divergence Loss** $$\( L_{PD} \)$$ 는 다음과 같이 정의됩니다.
+
+$$
+L_{PD} = \sum_{(x,y) \in D_n} \sum_{i=1}^{|y|} KL(\psi_{\theta_o}(x, y_{<i}) || \psi_{\theta_t}(x, y_{<i}))
+$$
+
+여기서,
+
+- $$\( \theta_t \)$$ 는 **각 훈련 스텝** $$\( t \)$$ 에서의 모델을 의미합니다.
+- $$\( L_{PD} \)$$ 는 **유해한 지식을 제거한 후에도 정상적인 프롬프트에 대해 모델이 일관된 응답을 유지하도록** 보장합니다.
+
+### KL Divergence의 의미
+
+위 식을 살펴보면, 정상적인 프롬프트 $$\( x_n \)$$ 에 대해 **original LLM** $$\( \theta_o \)$$ 과 **unlearned LLM** $$\( \theta_u \)$$ 사이의 KL divergence를 최소화**하는 것이 목적입니다.  
+즉, 유해한 지식을 제거한 이후에도 **정상적인 응답이 유지되도록 하는 것** 이 핵심입니다.
+
+비슷한 맥락에서, $$\( L_{PD} \)$$ 는 현재 학습 중인 모델 $$\( \theta_t \)$$ 의 예측 분포와 원본 모델 $$\( \theta_o \)$$ 의 예측 분포 사이의 차이를 줄여, **정상적인 프롬프트** $$\( D_n \)$$ 에 대해 유용한 응답을 생성하도록 유도합니다.
+
+각 항목을 해석하면 다음과 같습니다.
+
+- $$ \sum_{(x,y) \in D_n} $$ → **정상적인 데이터셋** $$\( D_n \)$$ 에 포함된 **모든 프롬프트-응답 쌍** 에 대해 손실을 계산합니다.
+- $$ \sum_{i=1}^{|y|} $$ → 각 응답 $$\( y \)$$ 의 **모든 토큰** 에 대해 손실을 평가하며, 각 토큰이 생성될 때의 예측 분포를 비교합니다.
+
+결과적으로, **$$\( L_{PD} \)$$ 를 최소화하는 과정은 모델이 정상적인 프롬프트에 대한 유틸리티를 보존하도록 하는 중요한 역할을 합니다.**
+
+---
+
+### 모델 업데이트
+
+모델은 위의 **세 가지 모듈** 을 합산하여 업데이트되며, 그 과정은 다음과 같이 나타낼 수 있습니다.
+
+$$
+\theta_{t+1} \leftarrow \theta_t - \epsilon_1 \cdot \nabla_{\theta_t} L_{GD} - \epsilon_2 \cdot \nabla_{\theta_t} L_{RD} + \epsilon_3 \cdot \nabla_{\theta_t} L_{PD}
+$$
+
+여기서,
+
+- $$\( \epsilon_1, \epsilon_2, \epsilon_3 \)$$ 는 각각 다른 loss term의 가중치를 조절하는 **하이퍼파라미터** 입니다.
+
+---
+
+## Step 2. Knowledge Negation Stage
+
+Knowledge Negation Stage(지식 부정 단계)는 학습된 모델에서 **유해한 정보(harmful information)** 뿐만 아니라 **랜덤성과 비정상적인 지식(abnormal knowledge)** 을 제거하는 과정입니다.  
+이 단계는 **모델의 유용성을 유지하면서도 유해한 지식을 제거한 unlearned model** $$\( \theta_u \)$$ 을 만드는 핵심적인 과정입니다.
+
+### 1. Harmful Knowledge 추출
+
+먼저, 저장된 **유해한 지식이 포함된 모델** $$\( \theta_{bad} \)$$ 로부터 유해한 지식을 추출합니다.
+
+$$
+\tau_{bad} = \theta_{bad} - \theta_o
+$$
+
+여기서,
+
+- $$\( \tau_{bad} \)$$ 는 **사전 훈련된 모델에서 내재된 유해한 지식** 을 나타냅니다.
+
+### 2. Negation Operation 적용
+
+그다음, **추출한 유해한 지식** $$\( \tau_{bad} \)$$ 에 대해 **negation operation** 을 적용합니다.
+
+$$
+\theta_o = \theta_o - \tau_{bad}
+$$
+
+이 과정을 통해, **모델이 유해한 지식의 영향을 받은 부분만 수정하고, 원래 학습한 내용의 무결성(integrity)은 보존**할 수 있도록 합니다.
+
+## Experiments
+
+### Research Question
+1. SKU는 unlearning과 utility performance를 효과적으로 균형을 이룰 수 있는가?
+2. Unlearning과 utility의 balancing을 맞추기위한 SKU의 각 module의 역할을 무엇인가?
+3. LLM unlearning에서 unlearning harmfulness와 preserving utility 사이의 trade-off를 성공적으로 해결하는가?
+
+본 논문의 실험에서는 위의 **research question**에 대한 답변?을 하기위해 광범위하게 validate을 진행한다.
+
+**이 글은 논문의 내용 정리를 위한 목적이므로 dataset과 model, experiment setup 등에 대한 설명은 생략하도록 한다.**
 
