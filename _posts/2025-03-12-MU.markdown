@@ -126,8 +126,8 @@ $$
 KL(P || Q) = -\sum_{i} P(i) \log \left(\frac{P(i)}{Q(i)}\right)
 $$
 
-이를 적용함으로써, **unlearned LLM** $$\( \theta_u \)$$ 와 **original LLM** $$\( \theta_o \)$$ 사이의 **정상적인 프롬프트** $$\( x_n \)$$ 에 대한 분포 차이를 최소화하는 것이 목표입니다.  
-따라서, **Preservation Divergence Loss** $$\( L_{PD} \)$$ 는 다음과 같이 정의됩니다.
+이를 적용함으로써, **unlearned LLM** $$\( \theta_u )$$ 와 **original LLM** $$\( \theta_o )$$ 사이의 **정상적인 프롬프트** $$\( x_n )$$ 에 대한 분포 차이를 최소화하는 것이 목표입니다.  
+따라서, **Preservation Divergence Loss** $$\( L_{PD} )$$ 는 다음과 같이 정의됩니다.
 
 $$
 L_{PD} = \sum_{(x,y) \in D_n} \sum_{i=1}^{|y|} KL(\psi_{\theta_o}(x, y_{<i}) || \psi_{\theta_t}(x, y_{<i}))
