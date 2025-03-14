@@ -6,7 +6,7 @@ sitemap: false
 categories: [Machine Unlearning, Deep Learning]
 tags: [blog]
 
-permalink: /_posts/
+permalink: /MU_01/
 ---
 #  Towards Safer Large Language Models through Machine
 ## Abstract
@@ -140,7 +140,7 @@ $$
 
 ### KL Divergence의 의미
 
-위 식을 살펴보면, 정상적인 프롬프트 $$x_n$$ 에 대해 **original LLM** $$\theta_o$$ 과 **unlearned LLM** $$\theta_u$$ 사이의 KL divergence를 최소화**하는 것이 목적입니다.  
+위 식을 살펴보면, 정상적인 프롬프트 $$x_n$$ 에 대해 **original LLM** $$\theta_o$$ 과 **unlearned LLM** $$\theta_u$$ 사이의 KL divergence를 **최소화**하는 것이 목적입니다.  
 즉, 유해한 지식을 제거한 이후에도 **정상적인 응답이 유지되도록 하는 것** 이 핵심입니다.
 
 비슷한 맥락에서, $$L_{PD}$$ 는 현재 학습 중인 모델 $$\theta_t$$ 의 예측 분포와 원본 모델 $$\theta_o$$ 의 예측 분포 사이의 차이를 줄여, **정상적인 프롬프트** $$D_n$$ 에 대해 유용한 응답을 생성하도록 유도합니다.

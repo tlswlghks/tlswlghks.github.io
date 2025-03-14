@@ -50,14 +50,14 @@ author:
 # Add links to the sidebar.
 menu:
   - title:             논문 리뷰
-    url:               /_posts/
+#    url:               /_posts/
     submenu:
       - title: LLM
 #        url: /llm/
       - title: Federated Learning
 #        url: /fl/
       - title: Machine Unlearning
-#        url: /MU_01/
+        url: /MU_01/
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
