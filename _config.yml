@@ -20,24 +20,24 @@
 lang:                  ko
 
 # The title of your blog. Used in the sidebar and the browser tab.
-title:                 Umzi Blog
+title:                 Thumb._.zihwan
 
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  Hydejack is a boutique Jekyll theme for hackers, nerds, and academics,
-  with a focus on personal sites that are meant to impress.
+  딥러닝 연구 및 공부 기록을 공유하는 블로그입니다.  
+  논문 리뷰, AI 기술 분석, 그리고 프로젝트 진행 내용을 다룹니다.
 
 # A shorter description for the sidebar.
 tagline:               공부 기록용
 
 # A list of keywords for your blog
-keywords:              []
+keywords:              ["머신러닝", "딥러닝", "LLM", "Federated Learning", "Machine Unlearning"]
 
 # A (square) logo for your site.
 # If provided, it will be shown at the top of the sidebar.
 # It also used by the `jekyll-seo-tag` plugin.
-logo:                  tlswlghks.github.io/assets/icons/robot.png
+logo:                  /assets/icons/ddd.png
 
 # This should be the same author as first entry in `_data/authors.yml`.
 author:
@@ -50,14 +50,25 @@ author:
 # Add links to the sidebar.
 menu:
   - title:             논문 리뷰
-    url:               /review/
+#    url:               /_posts/
     submenu:
       - title: LLM
-        url: /llm/
+#        url: /llm/
       - title: Federated Learning
-        url: /fl/
+#        url: /fl/
       - title: Machine Unlearning
-        url: /mu/
+        url: /MU_01/
+
+  - title: Technique report
+      #    url:               /_posts/
+    submenu:
+      - title: LLM
+        url: /FT_01/
+#      - title: Federated Learning
+  #        url: /fl/
+#      - title: Machine Unlearning
+#        url: /MU_01/
+
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
@@ -95,7 +106,7 @@ remote_theme: hydecorp/hydejack@v9
 # ----------------------------------------------------------------------------------------
  
 # Sidebar image and theme color of the site.
-accent_image:          tlswlghks.github.io/assets/img/computer.jpg
+accent_image:          /assets/img/taxi.jpg
 accent_color:          rgb(79,177,186)
 
 # This is used for the `theme-color` meta tag,
