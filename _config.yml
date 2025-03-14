@@ -59,6 +59,17 @@ menu:
       - title: Machine Unlearning
         url: /MU_01/
 
+  - title: Technique report
+      #    url:               /_posts/
+    submenu:
+      - title: LLM
+        url: /FT_01/
+#      - title: Federated Learning
+  #        url: /fl/
+#      - title: Machine Unlearning
+#        url: /MU_01/
+
+
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
 legal:
