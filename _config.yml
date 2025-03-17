@@ -114,8 +114,8 @@ analytics:
 # Site Author
 author:
   name             : "공부하는 애벌레"
-  avatar           : "/assets/images/larva.png"
-  bio              : "**AI Researcher** <br> - Federated Learning <br> - Machine Unlearning <br> - generative AI"
+  avatar           : "/assets/images/avatar/larva.png"
+  bio              : "**AI Researcher** <br> - Federated Learning <br> - Machine Unlearning <br> - Generative AI"
   location         : "Seoul, Republic of Korea"
   email            :
   links:
