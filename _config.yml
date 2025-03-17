@@ -21,7 +21,7 @@ title                    : "공부하는 애벌레 Blog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "공부하는 애벌레"  # 화면 하단 Footer 에 표시되는 이름입니다.
-description              : "꾸준하게 진화하는 중 ..."   # 사이트 설명입니다.
+description              : "진화하는 과정을 기록합니다!"   # 사이트 설명입니다.
 url                      : "tlswlghks.github.io"  # 블로그 url <본인의 Git ID>.github.io
 baseurl                  : # 오류 발생 시 연결되는 url 입니다.
 repository               : "https://github.com/tlswlghks/tlswlghks.github.io"   # GitHub Repo Url 입니다.
@@ -113,15 +113,15 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
+  name             : "공부하는 애벌레"
+  avatar           : "/assets/images/larva.png"
+  bio              : "**AI Researcher** <br> - Federated Learning <br> - Machine Unlearning <br> - generative AI"
+  location         : "Seoul, Republic of Korea"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+      url: "mailto:shinjihwan1997@gmail.com"  # mailto:<이메일 주소>
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -133,7 +133,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      url: "https://github.com/tlswlghks"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -149,10 +149,10 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://tlswlghks.github.io"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
-      url: "https://tlswlghks.github.io"
+      # url:
     - label: "Bitbucket"
       icon: "fab fa-fw fa-bitbucket"
       # url:
