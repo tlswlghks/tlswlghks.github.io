@@ -178,6 +178,38 @@
   min-height: $nav-height;
   background: $background-color;
 
+
+  // to be shared by both hidden link and visible link
+  .dropdown {
+      // float: left;
+      width: auto;
+      box-sizing: border-box;
+    }
+
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: darken($background-color, 3%);
+      // min-width: 160px;
+      box-shadow: $box-shadow;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+      // font-size: 17px;
+    }
+
+
+  .dropdown-item {
+      padding: 10px;
+      font-size: 15px;
+    }
+
+
   a {
     display: block;
     margin: 0 1rem;
@@ -186,24 +218,29 @@
     -webkit-transition: none;
     transition: none;
 
+
     &:hover {
       color: $masthead-link-color-hover;
     }
 
+
     &.site-logo {
-      margin-inline-start: 0;
-      margin-inline-end: 0.5rem;
+      margin-left: 0;
+      margin-right: 0.5rem;
     }
 
+
     &.site-title {
-      margin-inline-start: 0;
+      margin-left: 0;
     }
   }
+
 
   img {
     -webkit-transition: none;
     transition: none;
   }
+
 
   &__toggle {
     -ms-flex-item-align: center;
@@ -214,6 +251,7 @@
     background-color: transparent;
     cursor: pointer;
   }
+
 
   .visible-links {
     display: -webkit-box;
@@ -227,19 +265,24 @@
     flex: 1;
     overflow: hidden;
 
+
     li {
       -webkit-box-flex: 0;
       -ms-flex: none;
       flex: none;
+      display: list-item;
+      text-align: -webkit-match-parent;
     }
+
 
     a {
       position: relative;
 
+
       &:before {
         content: "";
         position: absolute;
-        inset-inline-start: 0;
+        left: 0;
         bottom: 0;
         height: 4px;
         background: $primary-color;
@@ -250,6 +293,7 @@
         transform: scaleX(0) translate3d(0, 0, 0); // hide
       }
 
+
       &:hover:before {
         -webkit-transform: scaleX(1);
         -ms-transform: scaleX(1);
@@ -258,10 +302,11 @@
     }
   }
 
+
   .hidden-links {
     position: absolute;
     top: 100%;
-    inset-inline-end: 0;
+    right: 0;
     margin-top: 15px;
     padding: 5px;
     border: 1px solid $border-color;
@@ -271,14 +316,17 @@
       0 2px 10px 0 rgba(#000, 0.12);
     box-shadow: 0 2px 4px 0 rgba(#000, 0.16), 0 2px 10px 0 rgba(#000, 0.12);
 
+
     &.hidden {
       display: none;
     }
+
 
     a {
       margin: 0;
       padding: 10px 20px;
       font-size: $type-size-5;
+
 
       &:hover {
         color: $masthead-link-color-hover;
@@ -286,11 +334,12 @@
       }
     }
 
-    &::before {
+
+    &:before {
       content: "";
       position: absolute;
       top: -11px;
-      inset-inline-end: 10px;
+      right: 10px;
       width: 0;
       border-style: solid;
       border-width: 0 10px 10px;
@@ -299,11 +348,12 @@
       z-index: 0;
     }
 
-    &::after {
+
+    &:after {
       content: "";
       position: absolute;
       top: -10px;
-      inset-inline-end: 10px;
+      right: 10px;
       width: 0;
       border-style: solid;
       border-width: 0 10px 10px;
@@ -312,9 +362,11 @@
       z-index: 1;
     }
 
+
     li {
       display: block;
       border-bottom: 1px solid $border-color;
+
 
       &:last-child {
         border-bottom: none;
