@@ -1,5 +1,5 @@
 ---
-permalink: /PR/MU/
+permalink: /MU/
 title: "Machine Unlearning of Pre-trained Large Language Models (2024)"
 toc: true
 toc_sticky: true

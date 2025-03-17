@@ -1,5 +1,5 @@
 ---
-permalink: /PR/MU/
+permalink: /MU/
 title: "Towards Safer Large Language Models through Machine Unlearning (2024)"
 toc: true
 toc_sticky: true
