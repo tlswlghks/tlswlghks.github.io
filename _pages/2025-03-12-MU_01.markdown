@@ -1,0 +1,209 @@
+---
+permalink: /PR/MU/
+title: "Towards Safer Large Language Models through Machine Unlearning (2024)"
+toc: true
+toc_sticky: true
+toc_label: 목차
+---
+#  Towards Safer Large Language Models through Machine
+## Abstract
+대규모 언어 모델(LLM)은 문제적인 프롬프트에 대해 유해한 답변을 생성할 수 있다는 한계를 갖고 있으며, 이를 해결하기 위한 다양한 연구가 진행되고 있다.   
+**Gradient ascent based approach**을 활용하여 LLM이 유해한 답변을 생성하지 않도록 하는 방법은 효과적일 수 있지만, 정상적인 프롬프트에 대한 모델의 활용성(utility)에 부정적인 영향을 미칠 가능성이 있다.   
+이러한 한계를 극복하기 위해 본 논문에서는 **선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU)** 기법을 제안한다. SKU는 정상적인 프롬프트에 대한 모델의 활용성을 유지하면서도 유해한 지식을 효과적으로 제거하도록 설계되었다.
+
+---
+
+## Introduction
+대규모 언어 모델(LLM, Large Language Model)은 다양한 인공지능(AI) 애플리케이션에서 뛰어난 성능을 발휘해왔다.
+그러나 방대한 양의 텍스트 데이터를 학습하는 과정에서, 유해한 프롬프트(harmful prompt)에 대해 부적절한 응답을 생성하는 문제가 발생할 수 있다. 이를 해결하기 위해 **인간 피드백을 활용한 강화 학습(RLHF, Reinforcement Learning from Human Feedback)** 기법이 도입되었으며, 정책 규제(policy regulations)와 인간의 가치(human values)를 반영하여 보다 안전한 출력을 생성하도록 설계되었다.
+하지만 RLHF는 **계산 비용이 높고(computationally expensive)**, **평가자의 편향(misaligned evaluator)** 에 따라 부정확한 조정이 이루어질 가능성이 있다는 한계를 가진다.
+
+이러한 한계를 극복하기 위한 대안으로 **기계 학습 제거(MU, Machine Unlearning)** 기법이 연구되고 있다.
+MU는 사전 학습(pre-training) 과정에서 바람직하지 않은 행동 패턴을 모델이 ‘잊도록(forget)’ 만드는 방법으로, RLHF보다 **계산 효율성이 높고(computationally efficient)**, **구현이 용이하다(implementing is easier)** 는 장점이 있다.
+
+전통적인 분류(classification) 작업에서의 MU는 **데이터셋과 학습된 모델에서 특정 데이터의 영향을 제거하는 것**을 목표로 한다. 그러나 모델의 규모가 커지고 학습 과정이 복잡해지면서, 기존 방법으로는 원하는 성능을 유지하기 어려워졌으며, 특히 정상적인 프롬프트(normal prompt)에 대한 응답 품질이 저하되는 문제가 발생했다.
+또한, 사전 학습된 LLM은 유해한 프롬프트에 대한 응답을 효과적으로 제거하지 못하는 경우가 많았으며, 기존의 **그래디언트 기반 접근법(gradient-based approaches)** 또한 정상적인 프롬프트에 대한 응답 성능을 저하시켰다.
+
+이러한 문제를 해결하기 위해 본 논문에서는 **선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU)** 기법을 제안한다. SKU는 정상적인 프롬프트에 대한 응답 성능을 유지하면서도, 모델이 유해한 지식을 효과적으로 제거할 수 있도록 설계되었다.
+
+본 논문에서 제안하는 선택적 지식 부정 학습(SKU)은 크게 **두 단계의 과정**으로 구성된다.
+
+1. **유해 지식 획득 단계 (Harmful Knowledge Acquisition Stage)**
+   - Guided Distortion Module
+   - Random Disassociation Module
+   - Preservation Divergence Module
+2. **지식 부정 학습 단계 (Knowledge Negation Stage)**
+
+본 연구의 주요 기여(contribution)는 다음과 같다.
+
+1. LLM에서 **유해한 지식을 제거하는 과정과 모델의 활용성(utility) 유지 간의 트레이드오프**를 분석한 최초의 연구이다.
+2. **두 단계로 구성된 선택적 지식 부정 학습 기법을 제안**하며, 이를 통해 정상적인 프롬프트에 대한 응답 성능을 유지하면서도 효율적으로 유해한 지식을 제거할 수 있도록 설계되었다.
+3. 실험(Experiments) 및 제거 연구(Ablation Studies)를 통해 제안한 프레임워크의 효과성을 검증하고, **유해성 제거(unlearning harmfulness)와 모델 성능 유지(utility performance preservation)** 를 입증하였다.
+
+각 단계에 대한 자세한 내용은 이후 **Methods** 절에서 다룬다.
+
+---
+
+## Methods
+선택적 지식 부정 학습(SKU)는 utility performance의 저하 없이 유해 정보(harmful information)을 선택적으로 제거하기 위해 설계되었다.
+
+첫 번째 단계는 LLM 내에서 유해 지식(harmful knowledge)를 식별하고, 학습하는 단계이다.
+두 번째 단계는 유해 지식(harmful knowledge)을 체계적으로 부정하는데 초점을 둔다.
+
+### Step 1.
+
+### Guided Distortion Module
+
+**Guided Distortion Module**은 유해한 프롬프트(harmful prompts)에 대해 정확하게 응답하도록 학습된 **original LLM**(pre-trained), 즉 $$ \theta_o $$ 를 활용하는 것을 목표로 한다.  
+이는 unlearning 과정 이후 LLM이 유해한 지식을 효과적으로 식별하고 완화할 수 있도록 돕는다.  
+
+유해한 프롬프트-출력 쌍 $$(x_f, y_f)$$ 가 주어졌을 때, LLM $$ \theta $$ 에 의해 생성된 토큰 $$ y_i $$ 의 예측 확률을 다음과 같이 정의한다.  
+
+$$
+\psi _\theta (x, y_{<i}) = \mathbb{P}(y_i \mid  (x, y_{<i}); \theta), \quad y_{<i} = [y_0, y_1, ..., y_{i-1}]
+$$
+
+**Guided Distortion Module**의 손실 함수 $$ L_{GD} $$ 는 다음과 같이 계산된다.  
+
+$$
+L_{GD} = \sum_{(x,y)\in D_f} \sum_{i=1}^{\mid y\mid } l(\psi _\theta (x, y_{<i}), y_i)
+$$
+
+여기서 $$ l(\cdot) $$ 은 **cross-entropy loss**를 나타내며, gradient descent를 통해 LLM이 유해한 응답을 학습하고 내면화할 수 있도록 유도한다.  
+
+### Loss Function 해석  
+- $$ \sum_{(x,y)\in D_f} $$ 는 유해한 프롬프트-응답 쌍을 반복하며 손실을 계산하는 과정이다.  
+- $$ \sum_{i=1}^{\mid y\mid } $$ 는 개별 응답 내의 각 토큰에 대해 반복하는 과정이다.  
+- $$ \psi _\theta (x, y_{<i}) $$ 는 프롬프트 $$ x $$ 가 주어졌을 때, 이전 시점까지의 응답 $$ y_{<i} $$ 을 기반으로 $$ y_i $$ 를 예측하는 확률을 의미하며, 실제 응답 $$ y_i $$ 와의 **cross-entropy loss**를 측정한다.  
+
+결과적으로, **Guided Distortion Module**은 LLM이 유해한 출력을 보다 정확하게 예측하도록 학습시키며, 이를 통해 **유해한 지식을 식별하고 완화하는 효과**를 기대할 수 있다.
+
+### Random Disassociation Module
+
+Unlearning LLM의 중요한 목표 중 하나는 유해한 프롬프트 $$ x_f $$가 입력되었을 때, unlearned model $$ \theta_u $$가 관련이 없고, 기존의 특정 유해한 응답과 확연히 다른 응답을 생성하도록 하는 것이다.  
+이는 모델이 한 형태의 유해한 출력을 다른 형태로 단순 대체하는 것이 아니라, 전혀 다른 맥락의 콘텐츠를 생성하도록 유도하는 데 중요한 역할을 한다.  
+
+이 모듈의 동기는 유해한 콘텐츠가 단일하지 않으며, 맥락과 표현 방식에 따라 크게 달라진다는 점에서 비롯된다.  
+**Random Disassociation Module**은 모델의 학습 과정에 무작위성(randomness)을 주입하도록 설계되었으며, 이는 유해한 프롬프트와 그에 따른 유해한 반응 간의 직접적인 연관성을 방해하는 데 필수적이다.  
+
+각 유해한 프롬프트-응답 쌍 $$ (x_i, y_i) \in D_f $$에 대해, $$ k $$개의 구별된 유해 응답을 포함하는 집합 $$ Y_{RD}^{i} $$를 랜덤하게 할당한다.  
+이때, 다음 조건을 만족해야 한다.  
+
+$$
+\mid Y_{RD}^{i}\mid  = k, \quad y_i \notin Y_{RD}^{i}
+$$
+
+이 모듈의 손실 함수는 다음과 같이 정의된다.  
+
+
+$$
+h(x_i, Y_{RD}^{i}) = \sum_{y\in Y_{RD}^{i}} \sum_{i=1}^{\mid y\mid } l(\psi _\theta (x, y_{<i}), y_i)
+$$
+
+$$
+L_{RD} = \sum_{(x_i) \in D_f} h(x_i, Y_{RD}^{i})
+$$
+
+여기서 $$ Y_{RD} $$는 유해하다고 분류되지만, 해당 유해한 프롬프트 $$ x $$와 직접적으로 관련이 없는 일련의 응답들을 나타낸다.  
+
+모델이 의도적으로 유해한 정보에 노출되는 **Guided Distortion Module**을 기반으로, **Random Disassociation Module**은 모델이 유해하지만 정렬되지 않은 응답을 생성하는 행동을 학습하도록 유도하는 것을 목표로 한다.  
+본질적으로, **Random Disassociation**은 LLM이 학습한 유해한 지식을 더욱 다양화하여, 이후 단계에서 보다 효과적이고 포괄적인 **Unlearning Process**를 수행할 수 있도록 준비하는 역할을 한다.
+
+
+### Preservation Divergence Module
+
+LLM unlearning의 또 다른 중요한 목표는 **유해한 지식(harmful knowledge)** 을 제거하는 동시에, **비유해적인(normal) 프롬프트** 에 대한 응답이 손상되지 않도록 하는 것입니다.  
+이전 모듈들이 유해한 콘텐츠에 초점을 맞췄다면, **Preservation Divergence Module(PD Module)** 은 정상적인 프롬프트를 유지하는 데 중점을 둡니다.
+
+논문에서는 이를 다음과 같이 정의합니다.
+
+$$
+P(i) = \theta_o(x_o)(i), \quad Q(i) = \theta_u(x_n)(i)
+$$
+
+여기서 **negative KL divergence** 는 다음과 같이 표현할 수 있습니다.
+
+$$
+KL(P || Q) = -\sum_{i} P(i) \log \left(\frac{P(i)}{Q(i)}\right)
+$$
+
+이를 적용함으로써, **unlearned LLM** $$\theta_u$$ 와 **original LLM** $$\theta_o$$ 사이의 **정상적인 프롬프트** $$x_n$$ 에 대한 분포 차이를 최소화하는 것이 목표입니다.  
+따라서, **Preservation Divergence Loss** $$L_{PD}$$ 는 다음과 같이 정의됩니다.
+
+$$
+L_{PD} = \sum_{(x,y) \in D_n} \sum_{i=1}^{|y|} KL(\psi_{\theta_o}(x, y_{<i}) || \psi_{\theta_t}(x, y_{<i}))
+$$
+
+여기서,
+
+- $$\theta_t$$ 는 **각 훈련 스텝** $$t$$ 에서의 모델을 의미합니다.
+- $$L_{PD}$$ 는 **유해한 지식을 제거한 후에도 정상적인 프롬프트에 대해 모델이 일관된 응답을 유지하도록** 보장합니다.
+
+### KL Divergence의 의미
+
+위 식을 살펴보면, 정상적인 프롬프트 $$x_n$$ 에 대해 **original LLM** $$\theta_o$$ 과 **unlearned LLM** $$\theta_u$$ 사이의 KL divergence를 **최소화**하는 것이 목적입니다.  
+즉, 유해한 지식을 제거한 이후에도 **정상적인 응답이 유지되도록 하는 것** 이 핵심입니다.
+
+비슷한 맥락에서, $$L_{PD}$$ 는 현재 학습 중인 모델 $$\theta_t$$ 의 예측 분포와 원본 모델 $$\theta_o$$ 의 예측 분포 사이의 차이를 줄여, **정상적인 프롬프트** $$D_n$$ 에 대해 유용한 응답을 생성하도록 유도합니다.
+
+각 항목을 해석하면 다음과 같습니다.
+
+- $$ \sum_{(x,y) \in D_n} $$ → **정상적인 데이터셋** $$D_n$$ 에 포함된 **모든 프롬프트-응답 쌍** 에 대해 손실을 계산합니다.
+- $$ \sum_{i=1}^{\|y\|} $$ → 각 응답 $$y$$ 의 **모든 토큰** 에 대해 손실을 평가하며, 각 토큰이 생성될 때의 예측 분포를 비교합니다.
+
+결과적으로, **$$L_{PD}$$ 를 최소화하는 과정은 모델이 정상적인 프롬프트에 대한 유틸리티를 보존하도록 하는 중요한 역할을 합니다.**
+
+---
+
+### 모델 업데이트
+
+모델은 위의 **세 가지 모듈** 을 합산하여 업데이트되며, 그 과정은 다음과 같이 나타낼 수 있습니다.
+
+$$
+\theta_{t+1} \leftarrow \theta_t - \epsilon_1 \cdot \nabla_{\theta_t} L_{GD} - \epsilon_2 \cdot \nabla_{\theta_t} L_{RD} + \epsilon_3 \cdot \nabla_{\theta_t} L_{PD}
+$$
+
+여기서,
+
+- $$\epsilon_1, \epsilon_2, \epsilon_3$$ 는 각각 다른 loss term의 가중치를 조절하는 **하이퍼파라미터** 입니다.
+
+---
+
+## Step 2. Knowledge Negation Stage
+
+Knowledge Negation Stage(지식 부정 단계)는 학습된 모델에서 **유해한 정보(harmful information)** 뿐만 아니라 **랜덤성과 비정상적인 지식(abnormal knowledge)** 을 제거하는 과정입니다.  
+이 단계는 **모델의 유용성을 유지하면서도 유해한 지식을 제거한 unlearned model** $$\theta_u$$ 을 만드는 핵심적인 과정입니다.
+
+### 1. Harmful Knowledge 추출
+
+먼저, 저장된 **유해한 지식이 포함된 모델** $$\theta_{bad}$$ 로부터 유해한 지식을 추출합니다.
+
+$$
+\tau_{bad} = \theta_{bad} - \theta_o
+$$
+
+여기서,
+
+- $$\tau_{bad}$$ 는 **사전 훈련된 모델에서 내재된 유해한 지식** 을 나타냅니다.
+
+### 2. Negation Operation 적용
+
+그다음, **추출한 유해한 지식** $$\tau_{bad}$$ 에 대해 **negation operation** 을 적용합니다.
+
+$$
+\theta_o = \theta_o - \tau_{bad}
+$$
+
+이 과정을 통해, **모델이 유해한 지식의 영향을 받은 부분만 수정하고, 원래 학습한 내용의 무결성(integrity)은 보존**할 수 있도록 합니다.
+
+## Experiments
+
+### Research Question
+1. SKU는 unlearning과 utility performance를 효과적으로 균형을 이룰 수 있는가?
+2. Unlearning과 utility의 balancing을 맞추기위한 SKU의 각 module의 역할을 무엇인가?
+3. LLM unlearning에서 unlearning harmfulness와 preserving utility 사이의 trade-off를 성공적으로 해결하는가?
+
+본 논문의 실험에서는 위의 **research question**에 대한 답변?을 하기위해 광범위하게 validate을 진행한다.
+
+**이 글은 논문의 내용 정리를 위한 목적이므로 dataset과 model, experiment setup 등에 대한 설명은 생략하도록 한다.**
+

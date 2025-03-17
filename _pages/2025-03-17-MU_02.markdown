@@ -1,0 +1,185 @@
+---
+permalink: /PR/MU/
+title: "Machine Unlearning of Pre-trained Large Language Models (2024)"
+toc: true
+toc_sticky: true
+toc_label: 목차
+---
+# Machine Unlearning of Pre-trained Large Language Models
+
+## Abstract
+본 논문에서는 일곱 가지 다양한 unlearning 방법을 비판적으로 분석하고, pre-trained LLM의 machine unlearning을 위한 포괄적인 프레임워크를 제시한다.
+
+또한, 분포 내 데이터에서 gradient ascent와 gradient descent를 통합하면 hyperparameter의 견고성이 향상됨을 보인다. 이를 기반으로 효율적인 hyperparameter 튜닝을 위한 자세한 가이드를 제공하여, pre-trained LLM의 machine unlearning 메커니즘에 대한 실질적인 통찰력을 제시하고 책임감 있는 AI 개발의 가능성을 강조한다.
+
+---
+
+## Introduction
+LLM은 방대한 데이터 풀을 활용하지만, 이 데이터가 민감하거나(sensitive), 사적이거나(private), 저작권이 있는(copyrighted) 경우 윤리적 문제가 발생할 수 있다.
+
+예를 들어, **The New York Times**는 OpenAI가 ChatGPT를 학습시키는 데 자사의 수백만 개 기사를 무단으로 사용했다며 소송을 제기했다. 이는 LLM 개발에서 저작권 침해 문제를 부각시키는 중요한 사례다.
+
+이러한 윤리적 문제를 해결하기 위한 방안으로 **machine unlearning**이 등장했다. machine unlearning은 모델이 특정 데이터를 학습하지 않은 것처럼 동작하도록 하는 기법으로, LLM의 사전 학습 데이터에서 비롯된 윤리적 문제를 완화할 수 있다. 이를 통해 LLM이 변화하는 법적 및 윤리적 기준을 준수하도록 만들 수 있다.
+
+그러나 현재 machine unlearning 연구는 주로 fine-tuned 모델에 집중되어 있다. 본 논문은 **pre-trained LLM의 unlearning**에 초점을 맞추며, 다음과 같은 세 가지 도전 과제를 해결해야 한다.
+
+1. 기존의 unlearning 방법을 pre-trained LLM에 적용해야 할 필요성
+2. LLM 개발에 사용된 pre-trained 데이터가 공개적으로 제공되지 않는 문제
+3. pre-trained LLM을 다시 학습(retrain)하는 데 드는 막대한 비용
+
+본 논문의 주요 기여(contributions)와 발견 사항은 다음과 같다.
+- LLM을 위한 통합 unlearning 프레임워크를 구성하고, 7가지 unlearning 방법론을 도출하여 LLM에 적용
+- Pre-trained LLM을 다시 학습하는 것이 비현실적이므로, 이를 우회할 수 있는 approximate retraining baseline을 제안하고 실험을 통해 검증
+- Gradient ascent와 gradient descent를 결합하여 hyperparameter의 견고성을 높임
+- 효율적인 hyperparameter 튜닝을 위한 가이드라인을 제시하여 LLM의 unlearning을 더욱 실현 가능하게 만듦
+
+---
+
+## Problem Formulation
+훈련 데이터셋을 $D=\{x_i\}_{i=1}^{N}$ 라고 정의하며, 여기서 $x_{i}$는 $t_i$ 개의 토큰 $w_{1}^{i}, w_{2}^{i}, ..., w_{t_i}^{i}$로 구성된 시퀀스이다.
+
+Generative LLM $M$은 일반적으로 **next-token prediction**을 사용하여 학습되며, 주어진 프롬프트에 대해 다음 토큰의 조건부 확률을 모델링한다.
+
+또한, 학습 알고리즘을 $A$라고 정의하고, 모델을 $M \leftarrow A(D)$로 표현한다. 이때 학습 목적은 **negative log-likelihood**를 최소화하는 것이다.
+
+$$ L(P_M;D)=-\sum_{x_i\in D} \sum_{t=1}^{t_i} \log P_M(w_{t+1}^i | w_1^i, ..., w_t^i) $$
+
+unlearning을 수행해야 하는 특정 데이터를 **forget set** $u \subset D$ 라고 정의하고, 이를 제거한 새로운 모델을 $M'$이라고 한다. 즉, **unlearned model** $M'$은 unlearning 알고리즘 $\hat{A}$를 통해 생성된다.
+
+비공식적으로 unlearning이 성공하려면, $M'$의 출력 분포가 forget set이 없는 모델 $M^*$과 유사해야 한다. 이를 **exact unlearning**이라고 한다.
+
+$$ \mathbb{E}P_{M^*} \approx \mathbb{E}P_{M'} \quad \text{where} \quad M^* \leftarrow A(D\setminus u) $$
+
+즉, forget set $u$가 제거된 데이터셋 $D\setminus u$로 학습한 모델 $M^*$과, unlearning 알고리즘이 적용된 모델 $M'$의 성능이 유사해야 한다. 또한, forget set $u$와 unseen dataset에서 $M'$의 성능은 vanilla model보다 낮아야 한다.
+
+이것이 **machine unlearning의 궁극적인 목표**다.
+
+---
+
+## Unlearning Methods
+
+### Overview
+
+LLM의 목표는 주어진 토큰 시퀀스를 효과적으로 학습하면서도 유지해야 할 데이터(retain set)의 성능을 보장하는 것이다.  
+이를 위해 본 논문에서는 **next-token prediction을 사용하는 LLM의 unlearning을 근사하는 프레임워크**를 제안한다.
+
+아래 수식은 unlearned sequences $u$에서 **gradient derived**를 사용하여 현재 모델 $M$을 업데이트하는 방법을 보여준다.
+
+$$
+\sum_{w\in u}^{}\sum_{t=1}^{T}\mathbb{E}_{q_t \sim Q_{w_t}} \log P_M(q_t \mid  w_1, w_2, ..., w_{t-1}) + \sum_{z\in \Re }^{}\sum_{t=1}^{T}\log P_M(z_t\mid z_1, z_2, ..., z_{t-1})
+$$
+
+- $\Re \subseteq D\setminus u$이며,  
+- $Q_{w_t}$는 reference distribution으로, $w_t$에 의존하는 token universe $W$에 대한 distribution 집합이다.
+
+> - **첫 번째 항**: 잊어야 할 데이터 $u$와 관련되며, $w$는 unlearning 대상 sequence를 의미한다.  
+>   이를 통해 **모델이 $u$의 정보를 잊도록 학습**한다.  
+> - **두 번째 항**: 유지해야 할 데이터 $\Re $과 관련되며, $z$는 유지해야 하는 sequence를 의미한다.  
+>   이를 통해 **모델이 $\Re$에 대한 예측 성능을 유지**하도록 학습한다.  
+> - 이 두 항을 합하여, **모델이 unlearning과 retain set 성능 유지라는 두 가지 목표를 동시에 달성**하도록 한다.
+
+---
+
+### Approximate Unlearning Methods (Gradient Ascent or Negative Gradient)
+
+위 수식에서  
+- **두 번째 항을 무시**하고,  
+- **$Q_{w_t}=\delta_{w_t}$로 바꾼 후 gradient에 -1을 곱하면**  
+
+➡ **Gradient Ascent 혹은 Negative Gradient 방법이 된다.**
+
+> 여기서, $\delta_{w_t}$는 $w_t$에서의 delta 함수로, $q_t \sim Q_{w_t}$는 $q_t=w_t$를 의미하며 확률은 1이다.
+
+**직관적으로 보면**  
+- 기존 모델 $M$은 $u$로 학습되었지만,  
+- 재학습된 모델 $M_r^u$는 $u$를 보지 못했기 때문에 **$M$의 $u$ loss는 $M_r^u$보다 낮다.**  
+- 단, $\mid u \mid$가 작을 경우 loss 차이는 크지 않다.  
+
+하지만, **너무 많은 epoch 동안 gradient ascent를 수행하면**  
+- 모델 $M$이 **$D \setminus u$에 대한 정보까지 잊어버려 utility가 저하**된다.  
+- 따라서, 몇몇 연구에서는 **일정 횟수만 gradient ascent를 적용**하는 방식을 사용한다.
+
+> - 두 번째 항을 무시하고, **첫 번째 항에 -1을 곱하면** forget set에 대해 **gradient ascent 효과**가 적용된다.
+
+---
+
+### Fine-tuning with Random Labels
+
+위 **Overview 방정식에서 두 번째 항을 무시**하고  
+- 가능한 모든 token 집합 $W$에 대해 $Q_{w_t}$를 **uniform distribution**으로 설정하면  
+➡ **random label을 사용한 fine-tuning 방식**이 된다.
+
+> Random label fine-tuning의 핵심 아이디어:  
+> **$u$를 보지 않는 모델이 random guessing을 해야 한다.**
+
+그러나, 단순한 uniform distribution 방식은 적절하지 않다.  
+예를 들어:
+- 같은 sequence가 두 번 등장할 경우, 하나는 **unlearned**, 다른 하나는 **retained** 상태일 수 있다.
+- 이 경우, retrain된 모델이 **random guessing을 하면 안 된다.**
+
+### 해결책:
+선행 연구에서는 $Q_{w_t}$를 다음과 같이 설정할 것을 제안한다.
+$$
+Q_{w_t} = P_{M_{rand}}(w_t \mid w_1, ..., w_{t-1})
+$$
+- 여기서 **$M_{rand}$는 randomly initialized model**이다.
+- 이는 **$M_{rand}$가 $u$에 대한 정보를 포함하지 않은 상태에서 fine-tuning하는 것**과 유사하다.
+
+> - 두 번째 항을 무시하고, 첫 번째 항의 가능한 모든 token set에 대해 **random label을 사용**함으로써 forget set을 제거한다.
+
+---
+
+### Unlearning with Adversarial Samples
+
+이 방법은 원래 classification task를 위해 제안되었으나, 여기서는 LLM에 맞게 조정한다.  
+단순화를 위해 **하나의 sequence $w_1, ..., w_T$만 unlearned 된다고 가정**하면,  
+각 $t$에 대해 **adversarial sample** ${a_t}$를 생성할 수 있다.
+
+$$
+a_t = \arg\max_{a\neq w_t} P_M(a \mid w_1, w_2, ..., w_{t-1})
+$$
+
+이때, adversarial sample ${a_t}$는  
+- $w_t$에 가깝지만,  
+- 모델 $M$을 가장 **혼란스럽게 만들 수 있는 토큰**이다.
+
+우리는 forget set $u$의 모든 train sequence를 unlearn하기 위해,  
+- Overview 수식의 **두 번째 항을 무시**하고,  
+- $Q_{w_t} = \delta_{a_t}$와 **$\arg\max_{a\neq w_t}P_M(a \mid w_1, ..., w_{t-1})$를 사용하여**  
+- **모델 $M$을 fine-tuning**한다.
+
+일반적인 classification task에서는  
+- 각 train sample에 대해 **$K-1$개의 adversarial sample**을 사용하는 방식도 있지만,  
+- 이는 비현실적이므로 단순화하여 **$a_t=\arg\max_{a\neq w_t} P_M(a \mid w_1, ..., w_{t-1})$**로 설정한다.
+
+> - 마찬가지로, **두 번째 항을 무시하고 forget set을 adversarial sample을 통해 제거**하는 방법이다.  
+> - **Forget set과 유사한 adversarial sample을 생성하여 forget set을 모델에서 삭제**한다.
+
+---
+
+### Gradient Ascent + Descent 또는 KL Divergence on Retained Set
+
+Overview의 수식에서 **첫 번째 항을 무시**하면,  
+➡ Retained set에 대한 **fine-tuning 전략**이 된다.
+
+이 전략을 사용하면,  
+- $M$을 $D \setminus u$에서 수렴할 때까지 업데이트할 수 있으며,  
+- 이는 **처음부터 다시 훈련하는 효과**를 낼 수 있다.
+
+**하지만 문제는?**  
+- Pre-trained 데이터 양이 너무 많기 때문에,  
+- LLM에 적용하기에는 **비현실적**이다.
+
+### 해결책: Hybrid Approach  
+이 방법을 **독립적으로 사용하지 않고** gradient ascent와 통합하여  
+- **두 항을 최적화**하여 **unlearning 효과와 utility 간 균형**을 맞춘다.
+
+이를 위해:
+1. **Direct gradient ascent** (직접 기울기 상승)  
+2. **KL-divergence constraint methods**  
+
+두 가지 방법을 활용한다.
+
+> - 첫 번째 항을 무시하면 retain dataset에 대한 fine-tuning 방식으로 변경된다.  
+> - 그러나, retain dataset만 fine-tuning하면 현실적으로 적용이 어렵다.  
+> - 따라서, **두 항을 함께 최적화하여 unlearning 효과와 utility 간 균형을 맞춘다.**

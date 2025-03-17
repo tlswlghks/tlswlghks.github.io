@@ -1,7 +1,19 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  - title: "Paper review"
+    url: /PR/
+    sublinks:
+      - title: "Federated Learning"
+        url: /FL/
+      - title: "Machine Unlearning"
+        url: /MU/
+      - title: "Generative AI"
+        url: /GAI/
+  - title: "Technical report"
+    url: /TR/
+  - title: "DL/ML"
+    url: /DLML/
+
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
