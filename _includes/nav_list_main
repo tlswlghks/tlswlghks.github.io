@@ -1,0 +1,38 @@
+  <nav class="nav__list">
+    <input id="ac-toc" name="accordion-toc" type="checkbox" />
+    <label for="ac-toc">카테고리</label>
+    <ul class="nav__items" id="category_tag_menu">
+        <li>
+            📂 카테고리
+        </li>
+        <li>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="Introduce()">Introduce</span>
+        </li>
+        <li>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('blogSubMenu')">Blog</span>
+            <ul id="blogSubMenu" style="display: none;">
+                {% for category in site.categories %}
+                    {% if category[0] == "blog" %}
+                        <li><a href="/blog/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        function toggle(id) {
+            var subMenu = document.getElementById(id);
+            if (subMenu.style.display === "none") {
+                subMenu.style.display = "block";
+            } else {
+                subMenu.style.display = "none";
+            }
+        }
+
+        function Introduce() {
+            window.location.href = "/about/";
+        }
+    </script>
+    </ul>
+  </nav>

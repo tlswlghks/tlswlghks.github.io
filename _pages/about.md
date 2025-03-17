@@ -14,4 +14,5 @@ layouts_gallery:
     alt: "archive layout example"
 last_modified_at:
 toc: true
+sidebar_main: true
 ---
