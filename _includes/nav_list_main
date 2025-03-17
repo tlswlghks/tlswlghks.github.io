@@ -6,17 +6,26 @@
             📂 카테고리
         </li>
         <li>
-            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="Introduce()">Introduce</span>
-        </li>
-        <li>
-            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('blogSubMenu')">Blog</span>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('PaperReview')">PaperReview</span>
             <ul id="blogSubMenu" style="display: none;">
                 {% for category in site.categories %}
-                    {% if category[0] == "blog" %}
-                        <li><a href="/blog/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
+                    {% if category[0] == "FL" %}
+                        <li><a href="/FL/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
+                    {% endif %}
+                    {% if category[0] == "MU" %}
+                        <li><a href="/MU_1/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
+                    {% endif %}
+                    {% if category[0] == "AI" %}
+                        <li><a href="/GAI/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
+        </li>
+        <li>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="TechnicalReport()">TechnicalReport</span>
+        </li>
+        <li>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="DL/ML()">DL/ML</span>
         </li>
     </ul>
 
@@ -30,8 +39,11 @@
             }
         }
 
-        function Introduce() {
-            window.location.href = "/about/";
+        function TechnicalReport() {
+            window.location.href = "/TR/";
+        }
+        function DL/ML() {
+            window.location.href = "/DLML/";
         }
     </script>
     </ul>
