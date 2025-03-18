@@ -16,6 +16,10 @@ main:
     url: /TR/
   - title: "DL/ML"
     url: /DLML/
+  - title: "Error"
+    sublinks:
+      - title: "GPU Error"
+        url: /GPU/
 
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
