@@ -32,9 +32,7 @@
       </li>
     {% endfor %}
   </ul>
-</nav>
-
-<script>
+  <script>
   function toggle(id) {
     var subMenu = document.getElementById(id);
     if (subMenu.style.display === "none" || subMenu.style.display === "") {
@@ -43,4 +41,6 @@
       subMenu.style.display = "none";
     }
   }
-</script>
+  </script>
+</nav>
+
