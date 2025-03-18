@@ -32,15 +32,5 @@
       </li>
     {% endfor %}
   </ul>
-  <script>
-  function toggle(id) {
-    var subMenu = document.getElementById(id);
-    if (subMenu.style.display === "none" || subMenu.style.display === "") {
-      subMenu.style.display = "block";
-    } else {
-      subMenu.style.display = "none";
-    }
-  }
-  </script>
 </nav>
 
