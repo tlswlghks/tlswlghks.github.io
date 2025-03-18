@@ -1,38 +1,48 @@
-  <nav class="nav__list">
+<nav class="nav__list">
     <input id="ac-toc" name="accordion-toc" type="checkbox" />
     <label for="ac-toc">카테고리</label>
     <ul class="nav__items" id="category_tag_menu">
+        <li>📂 카테고리</li>
+        
+        <!-- Paper Review -->
         <li>
-            📂 카테고리
-        </li>
-        <li>
-            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('PaperReview')">PaperReview</span>
-            <ul id="blogSubMenu" style="display: none;">
-                {% for category in site.categories %}
-                    {% if category[0] == "FL" %}
-                        <li><a href="/FL/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
-                    {% endif %}
-                    {% if category[0] == "MU" %}
-                        <li><a href="/MU_1/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
-                    {% endif %}
-                    {% if category[0] == "AI" %}
-                        <li><a href="/GAI/" class="" style="margin-left: 15px;">- Blog ({{ category[1] | size }})</a></li>
-                    {% endif %}
-                {% endfor %}
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('PaperReviewSubMenu')">
+                Paper Review
+            </span>
+            <ul id="PaperReviewSubMenu" style="display: none;">
+                <li><a href="/FL/" style="margin-left: 15px;">- Federated Learning</a></li>
+                <li>
+                    <span class="nav__sub-title" style="margin-left: 15px; cursor: pointer;" onclick="toggle('MU_SubMenu')">
+                        - Machine Unlearning
+                    </span>
+                    <ul id="MU_SubMenu" style="display: none;">
+                        <li><a href="/MU_1/" style="margin-left: 30px;">MU_1</a></li>
+                        <li><a href="/MU_2/" style="margin-left: 30px;">MU_2</a></li>
+                    </ul>
+                </li>
+                <li><a href="/GAI/" style="margin-left: 15px;">- Generative AI</a></li>
             </ul>
         </li>
+
+        <!-- Technical Report -->
         <li>
-            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="TechnicalReport()">TechnicalReport</span>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="TechnicalReport()">
+                Technical Report
+            </span>
         </li>
+
+        <!-- DL/ML -->
         <li>
-            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="DL/ML()">DL/ML</span>
+            <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="DLML()">
+                DL/ML
+            </span>
         </li>
     </ul>
 
     <script>
         function toggle(id) {
             var subMenu = document.getElementById(id);
-            if (subMenu.style.display === "none") {
+            if (subMenu.style.display === "none" || subMenu.style.display === "") {
                 subMenu.style.display = "block";
             } else {
                 subMenu.style.display = "none";
@@ -42,9 +52,9 @@
         function TechnicalReport() {
             window.location.href = "/TR/";
         }
-        function DL/ML() {
+
+        function DLML() {
             window.location.href = "/DLML/";
         }
     </script>
-    </ul>
-  </nav>
+</nav>
