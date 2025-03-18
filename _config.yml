@@ -12,22 +12,22 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 # remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"  (블로그의 테마 색상 설정)
+minimal_mistakes_skin    : "neon" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"  (블로그의 테마 색상 설정)
 
 # Site Settings
 locale                   : "ko-KR"   # 블로그의 언어 설정
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "공부하는 애벌레 Blog"
+title                    : "Jwan's Learning.. Blog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "공부하는 애벌레"  # 화면 하단 Footer 에 표시되는 이름입니다.
-description              : "진화하는 과정을 기록합니다!"   # 사이트 설명입니다.
+name                     : "Jwan"  # 화면 하단 Footer 에 표시되는 이름입니다.
+description              : "이것 저것 AI 공부 블로그"   # 사이트 설명입니다.
 url                      : "tlswlghks.github.io"  # 블로그 url <본인의 Git ID>.github.io
 baseurl                  : # 오류 발생 시 연결되는 url 입니다.
 repository               : "https://github.com/tlswlghks/tlswlghks.github.io"   # GitHub Repo Url 입니다.
 teaser                   : # 오류 발생 시 표시되는 이미지 입니다.
 logo                     : # 화면에 표시되는 logo 이미지 입니다.
-masthead_title           : "공부하는 애벌레 Blog"   # 메인화면에 표시되는 Title 입니다.
+masthead_title           : "Jwan's Learning.. Blog"   # 메인화면에 표시되는 Title 입니다.
 breadcrumbs              : # true, false (default)
 words_per_minute         : 200
 enable_copy_code_button  : # true, false (default)
@@ -113,9 +113,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "공부하는 애벌레"
-  avatar           : "/assets/images/avatar/larva.png"
-  bio              : "**AI Researcher** <br> - Federated Learning <br> - Machine Unlearning <br> - Generative AI"
+  name             : "Jihwan Shin"
+  avatar           : "/assets/images/avatar/pacman.png"
+  bio              : "**AI Researcher** <br> - Federated Learning <br> - Machine Unlearning <br> - Generative AI <br> - ..."
   location         : "Seoul, Republic of Korea"
   email            :
   links:
