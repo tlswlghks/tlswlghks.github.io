@@ -1,7 +1,6 @@
 # main links
 main:
   - title: "Paper review"
-#    url: /PR/
     sublinks:
       - title: "Federated Learning"
         url: /FL/
