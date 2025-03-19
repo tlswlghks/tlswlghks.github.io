@@ -4,6 +4,12 @@ main:
     sublinks:
       - title: "Federated Learning"
         url: /FL/
+#        sublinks:
+#          - title: "FL_1"
+#            url: /FL_1/
+#          - title: "FL_2"
+#            url: /FL_2/
+
       - title: "Machine Unlearning"
         url: /MU/
         sublinks:
@@ -11,16 +17,34 @@ main:
             url: /MU_1/
           - title: "MU_2"
             url: /MU_2/
+
       - title: "Generative AI"
         url: /GAI/
+#        sublinks:
+#          - title: "GAI_1"
+#            url: /GAI_1/
+#          - title: "GAI_2"
+#            url: /GAI_2/
+
   - title: "Technical report"
     url: /TR/
+    sublinks:
+      - title: "TR_1"
+        url: /TR_1/
+
   - title: "DL/ML"
     url: /DLML/
+    sublinks:
+      - title: "DLML_1"
+        url: /DLML_1/
+#      - title: "DLML_2"
+#        url: /DLML_2/
+
   - title: "Error"
+    url: /ER/
     sublinks:
       - title: "GPU"
-        url: /GPU_1/
+        url: /ER_1/
 
 
 
