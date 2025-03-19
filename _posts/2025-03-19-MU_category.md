@@ -7,8 +7,7 @@ permalink: /MU/
 ## Paper Review List
 아래는 Machine Unlearning 관련 포스트 목록입니다.
 
-{% for post in site.pages %}
-  {% if post.url contains "/MU_" %}
-  - [{{ post.title }}]({{ post.url }})
-  {% endif %}
+{% assign mu_posts = site.pages | where_exp: "post", "post.url contains '/MU_'" %}
+{% for post in mu_posts %}
+- [{{ post.title }}]({{ post.url }})
 {% endfor %}
