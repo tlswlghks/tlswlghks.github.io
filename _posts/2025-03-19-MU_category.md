@@ -2,6 +2,11 @@
 layout: page
 title: Machine Unlearning 
 permalink: /MU/
+layout: single
+date: 2025-03-19
+categories: [blog]
+tags: [Blog]
+sidebar_main: true
 ---
 
 ## Paper Review List
