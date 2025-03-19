@@ -12,7 +12,12 @@ sidebar_main: true
 ## Paper Review List
 아래는 Machine Unlearning 관련 포스트 목록입니다.
 
-{% assign mu_posts = site.pages | where_exp: "post", "post.url contains '/MU_'" %}
-{% for post in mu_posts %}
-- [{{ post.title }}]({{ post.url }})
+<ul>
+{% for item in site.data.navigation.main %}
+  {% if item.title == "Machine Unlearning" %}
+    {% for sublink in item.sublinks %}
+      <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
+    {% endfor %}
+  {% endif %}
 {% endfor %}
+</ul>
