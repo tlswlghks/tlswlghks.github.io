@@ -16,7 +16,7 @@ Machine Unlearning 관련 리뷰 모음입니다. 아래에서 원하는 리뷰�
 ### 📌 리뷰 목록
 
 <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
-  <img src="/assets/images/poster/MU_1_poster.jpg" alt="MU_1 포스터" style="width: 250px; border-radius: 10px;">
+  <img src="/assets/images/poster/MU_1_poster.png" alt="MU_1 포스터" style="width: 250px; border-radius: 10px;">
   <div>
     <h3><a href="/MU_1/">Towards Safer Large Language Models through Machine Unlearning</a></h3>
     <p>
@@ -26,7 +26,7 @@ Machine Unlearning 관련 리뷰 모음입니다. 아래에서 원하는 리뷰�
 </div>
 
 <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
-  <img src="/assets/images/poster/MU_2_poster.jpg" alt="MU_2 포스터" style="width: 250px; border-radius: 10px;">
+  <img src="/assets/images/poster/MU_2_poster.png" alt="MU_2 포스터" style="width: 250px; border-radius: 10px;">
   <div>
     <h3><a href="/MU_2/">Machine Unlearning of Pre-trained Large Language Models</a></h3>
     <p>
