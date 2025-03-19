@@ -18,9 +18,9 @@ Machine Unlearning 관련 리뷰 모음입니다. 아래에서 원하는 리뷰�
 <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
   <img src="/assets/images/poster/MU_1_poster.png" alt="MU_1 포스터" style="width: 250px; border-radius: 10px;">
   <div>
-    <h3><a href="/MU_1/">Towards Safer Large Language Models through Machine Unlearning</a></h3>
+    <h3><a href="/MU_1/">Towards Safer Large Language Models through Machine Unlearning(2024)</a></h3>
     <p>
-      에서는 최신 Machine Unlearning 기법을 분석하며, 효율적인 모델 업데이트 및 데이터 삭제 방법을 다룹니다.
+      선택적 지식 부정 학습(Selective Knowledge Negation Unlearning, SKU) 기법을 제안하여 모델의 활용성을 유지하면서도 유해한 지식을 효과적으로 제거하는 방법을 제안합니다.
     </p>
   </div>
 </div>
@@ -28,9 +28,9 @@ Machine Unlearning 관련 리뷰 모음입니다. 아래에서 원하는 리뷰�
 <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
   <img src="/assets/images/poster/MU_2_poster.png" alt="MU_2 포스터" style="width: 250px; border-radius: 10px;">
   <div>
-    <h3><a href="/MU_2/">Machine Unlearning of Pre-trained Large Language Models</a></h3>
+    <h3><a href="/MU_2/">Machine Unlearning of Pre-trained Large Language Models(2024)</a></h3>
     <p>
-      MU_2에서는 실전 적용 사례를 중심으로 Machine Unlearning의 성능을 평가하고, 기존 모델과의 비교를 수행합니다.
+      본 논문에서는 일곱 가지 다양한 unlearning 방법을 비판적으로 분석하고, pre-trained LLM의 machine unlearning을 위한 포괄적인 프레임워크를 제안합니다.
     </p>
   </div>
 </div>
