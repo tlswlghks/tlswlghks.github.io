@@ -6,10 +6,10 @@ main:
         url: /FL/
       - title: "Machine Unlearning"
         sublinks:
-          - title: "MU_1"
-            url: /MU_1/
-          - title: "MU_2"
-            url: /MU_2/
+#          - title: "MU_1"
+          - url: /MU_1/
+#          - title: "MU_2"
+          - url: /MU_2/
       - title: "Generative AI"
         url: /GAI/
   - title: "Technical report"
