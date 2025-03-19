@@ -5,7 +5,7 @@ main:
       - title: "Federated Learning"
         url: /FL/
       - title: "Machine Unlearning"
-        url: /MU/  # 상위 카테고리에도 URL 추가
+        url: /MU/
         sublinks:
           - title: "MU_1"
             url: /MU_1/
@@ -21,6 +21,7 @@ main:
     sublinks:
       - title: "GPU"
         url: /GPU_1/
+
 
 
   # - title: "About"
