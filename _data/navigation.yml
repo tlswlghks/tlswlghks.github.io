@@ -18,8 +18,8 @@ main:
     url: /DLML/
   - title: "Error"
     sublinks:
-      - title: "GPU Error"
-        url: /GPU/
+      - title: "GPU"
+        url: /GPU_1/
 
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
