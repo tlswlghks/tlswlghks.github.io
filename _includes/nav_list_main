@@ -31,19 +31,19 @@
         {% endif %}
       </li>
     {% endfor %}
-  </ul>
-  <script>
-  function toggleMenu(id) {
-    var menu = document.getElementById(id);
-    if (menu) {
-      menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
-    }
-  }
+    <script>
+      function toggleMenu(id) {
+        var menu = document.getElementById(id);
+        if (menu) {
+          menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
+        }
+      }
 
-  // 페이지 로드 시 모든 sublist 숨기기
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.nav__sub-list').forEach(el => el.style.display = 'none');
-  });
-  </script>
+      // 페이지 로드 시 모든 sublist 숨기기
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.nav__sub-list').forEach(el => el.style.display = 'none');
+      });
+    </script>
+  </ul>
 </nav>
 
