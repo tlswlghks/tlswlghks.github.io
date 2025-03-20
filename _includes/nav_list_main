@@ -5,23 +5,23 @@
     {% for item in site.data.navigation.main %}
       <li>
         {% if item.sublinks %}
-          <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggle('{{ item.title | slugify }}')">
+          <span class="nav__sub-title" style="margin: 0; margin-left: 10px; cursor: pointer;" onclick="toggleMenu('{{ item.title | slugify }}')">
             {{ item.title }}
           </span>
-          <ul id="{{ item.title | slugify }}" style="display: none;">
+          <ul id="{{ item.title | slugify }}" class="nav__sub-list">
             {% for sublink in item.sublinks %}
               <li>
-                {% if sublink.url %}
-                  <a href="{{ sublink.url }}" style="margin-left: 15px;">- {{ sublink.title }}</a>
-                {% else %}
-                  <span class="nav__sub-title" style="margin-left: 15px; cursor: pointer;" onclick="toggle('{{ sublink.title | slugify }}')">
+                {% if sublink.sublinks %}
+                  <span class="nav__sub-title" style="margin-left: 15px; cursor: pointer;" onclick="toggleMenu('{{ sublink.title | slugify }}')">
                     - {{ sublink.title }}
                   </span>
-                  <ul id="{{ sublink.title | slugify }}" style="display: none;">
+                  <ul id="{{ sublink.title | slugify }}" class="nav__sub-list">
                     {% for sub_sublink in sublink.sublinks %}
                       <li><a href="{{ sub_sublink.url }}" style="margin-left: 30px;">{{ sub_sublink.title }}</a></li>
                     {% endfor %}
                   </ul>
+                {% else %}
+                  <a href="{{ sublink.url }}" style="margin-left: 15px;">- {{ sublink.title }}</a>
                 {% endif %}
               </li>
             {% endfor %}
@@ -34,3 +34,16 @@
   </ul>
 </nav>
 
+<script>
+  function toggleMenu(id) {
+    var menu = document.getElementById(id);
+    if (menu) {
+      menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
+    }
+  }
+
+  // 페이지 로드 시 모든 sublist 숨기기
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.nav__sub-list').forEach(el => el.style.display = 'none');
+  });
+</script>
